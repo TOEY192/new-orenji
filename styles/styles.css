@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* สีหลักของธีม */
+:root {
+    --primary-color: #ff6600;
+    --secondary-color: #fff;
+    --dark-color: #333;
+    --hover-color: #e65c00;
+}
+
+/* 🔹 สไตล์ Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 50px;
+    background: rgba(255, 102, 0, 0.9);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.navbar .nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.navbar .nav-links li {
+    margin: 0 15px;
+}
+
+.navbar .nav-links a {
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 18px;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar .nav-links a:hover {
+    color: var(--dark-color);
+    background: var(--secondary-color);
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+/* 🔹 Header ส่วนบน */
+.header {
+    background: url('https://source.unsplash.com/1600x900/?airplane,skyline') no-repeat center center/cover;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 70px;
+}
+
+/* 🔹 ส่วนจองตั๋ว */
+.booking-section {
+    text-align: center;
+    padding: 50px 20px;
+    background: var(--secondary-color);
+}
+
+.booking-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+    font-size: 28px;
+}
+
+.booking-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.booking-form input, .booking-form select, .booking-form button {
+    padding: 12px;
+    width: 250px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+}
+
+.booking-form button {
+    background: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.booking-form button:hover {
+    background: var(--hover-color);
+    transform: scale(1.05);
+}
+
+.booking-form input[type="date"] {
+    position: relative;
+    padding: 12px 15px;
+    width: 250px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+    background-color: white;
+    color: var(--dark-color);
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* เพิ่มไอคอนปฏิทิน 📅 */
+.booking-form input[type="date"]::-webkit-calendar-picker-indicator {
+    background-image: url('https://cdn-icons-png.flaticon.com/512/747/747310.png');
+    background-size: 18px 18px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    filter: opacity(0.7);
+    transition: 0.3s;
+}
+
+/* Hover & Focus Effect */
+.booking-form input[type="date"]:hover,
+.booking-form input[type="date"]:focus {
+    border-color: var(--hover-color);
+    box-shadow: 0 0 8px rgba(255, 102, 0, 0.4);
+}
+
+/* เปลี่ยนสีไอคอนเมื่อ hover */
+.booking-form input[type="date"]:hover::-webkit-calendar-picker-indicator,
+.booking-form input[type="date"]:focus::-webkit-calendar-picker-indicator {
+    filter: opacity(1);
+}
+
+/* 🔹 Footer */
+.footer {
+    text-align: center;
+    background: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 15px;
+    font-size: 16px;
+    margin-top: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .navbar .nav-links {
+        margin-top: 10px;
+        flex-direction: column;
+    }
+
+    .navbar .nav-links li {
+        margin: 5px 0;
+    }
+
+    .booking-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .booking-form input, .booking-form select, .booking-form button {
+        width: 100%;
+        max-width: 300px;
+    }
+}
