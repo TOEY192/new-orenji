@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Bookings</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        nav {
+            background-color: #ff6600;
+            padding: 15px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            color: white;
+            font-size: 22px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .nav-link.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        
+        header {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #ff6600;
+            margin-bottom: 10px;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .tab {
+            padding: 12px 20px;
+            cursor: pointer;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            border-bottom: 3px solid #ff6600;
+            color: #ff6600;
+        }
+        
+        .tab:hover {
+            background-color: #f8f8f8;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .booking-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: transform 0.2s ease;
+        }
+        
+        .booking-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+        
+        .booking-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .booking-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ff6600;
+        }
+        
+        .booking-status {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        .status-confirmed {
+            background-color: #e6f7e6;
+            color: #28a745;
+        }
+        
+        .status-pending {
+            background-color: #fff8e6;
+            color: #ffc107;
+        }
+        
+        .status-completed {
+            background-color: #e6e6ff;
+            color: #ff6600;
+        }
+        
+        .status-cancelled {
+            background-color: #ffe6e6;
+            color: #dc3545;
+        }
+        
+        .booking-details {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .booking-detail {
+            flex: 1;
+            min-width: 200px;
+            margin-bottom: 10px;
+        }
+        
+        .detail-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 3px;
+        }
+        
+        .detail-value {
+            font-size: 15px;
+        }
+        
+        .booking-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background-color: #2a2a72;
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+        
+        .btn-danger {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .btn:hover {
+            opacity: 0.9;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .empty-state p {
+            margin-bottom: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .booking-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .booking-status {
+                margin-top: 10px;
+            }
+            
+            .booking-detail {
+                min-width: 100%;
+            }
+            
+            .booking-actions {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">✈ ORENJI AIRLINES</a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="mybooking.html" class="nav-link active">My Bookings</a>
+            </div>
+        </div>
+    </nav>
+    
+    <header>
+        <div class="container">
+            <h1>My Bookings</h1>
+            <p>View and manage all your current and past bookings</p>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" onclick="openTab(event, 'current')">Current Bookings</div>
+            <div class="tab" onclick="openTab(event, 'history')">Booking History</div>
+        </div>
+        
+        <div id="current" class="tab-content active">
+            <!-- Current Booking #1 -->
+            <div class="booking-card">
+                <div class="booking-header">
+                    <div class="booking-title">Deluxe Room - Oceanview Resort</div>
+                    <div class="booking-status status-confirmed">Confirmed</div>
+                </div>
+                <div class="booking-details">
+                    <div class="booking-detail">
+                        <div class="detail-label">Booking ID</div>
+                        <div class="detail-value">BK-20250412-8723</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-in</div>
+                        <div class="detail-value">April 12, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-out</div>
+                        <div class="detail-value">April 15, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Guests</div>
+                        <div class="detail-value">2 Adults, 1 Child</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Total Amount</div>
+                        <div class="detail-value">$789.00</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Payment Status</div>
+                        <div class="detail-value">Paid</div>
+                    </div>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn btn-primary">View Details</button>
+                    <button class="btn btn-secondary">Modify Booking</button>
+                    <button class="btn btn-danger">Cancel Booking</button>
+                </div>
+            </div>
+            
+            <!-- Current Booking #2 -->
+            <div class="booking-card">
+                <div class="booking-header">
+                    <div class="booking-title">Executive Suite - Downtown Luxury Hotel</div>
+                    <div class="booking-status status-pending">Pending</div>
+                </div>
+                <div class="booking-details">
+                    <div class="booking-detail">
+                        <div class="detail-label">Booking ID</div>
+                        <div class="detail-value">BK-20250520-9154</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-in</div>
+                        <div class="detail-value">May 20, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-out</div>
+                        <div class="detail-value">May 23, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Guests</div>
+                        <div class="detail-value">2 Adults</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Total Amount</div>
+                        <div class="detail-value">$1,247.00</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Payment Status</div>
+                        <div class="detail-value">Awaiting Payment</div>
+                    </div>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn btn-primary">View Details</button>
+                    <button class="btn btn-secondary">Complete Payment</button>
+                    <button class="btn btn-danger">Cancel Booking</button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="history" class="tab-content">
+            <!-- Historical Booking #1 -->
+            <div class="booking-card">
+                <div class="booking-header">
+                    <div class="booking-title">Standard Room - Cityscape Inn</div>
+                    <div class="booking-status status-completed">Completed</div>
+                </div>
+                <div class="booking-details">
+                    <div class="booking-detail">
+                        <div class="detail-label">Booking ID</div>
+                        <div class="detail-value">BK-20250310-6437</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-in</div>
+                        <div class="detail-value">March 10, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-out</div>
+                        <div class="detail-value">March 12, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Guests</div>
+                        <div class="detail-value">1 Adult</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Total Amount</div>
+                        <div class="detail-value">$329.00</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Payment Status</div>
+                        <div class="detail-value">Paid</div>
+                    </div>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn btn-primary">View Details</button>
+                    <button class="btn btn-secondary">Book Again</button>
+                </div>
+            </div>
+            
+            <!-- Historical Booking #2 -->
+            <div class="booking-card">
+                <div class="booking-header">
+                    <div class="booking-title">Family Suite - Mountain View Resort</div>
+                    <div class="booking-status status-cancelled">Cancelled</div>
+                </div>
+                <div class="booking-details">
+                    <div class="booking-detail">
+                        <div class="detail-label">Booking ID</div>
+                        <div class="detail-value">BK-20250215-5289</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-in</div>
+                        <div class="detail-value">February 15, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-out</div>
+                        <div class="detail-value">February 20, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Guests</div>
+                        <div class="detail-value">2 Adults, 2 Children</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Total Amount</div>
+                        <div class="detail-value">$1,578.00</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Cancellation Date</div>
+                        <div class="detail-value">February 10, 2025</div>
+                    </div>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn btn-primary">View Details</button>
+                    <button class="btn btn-secondary">Book Again</button>
+                </div>
+            </div>
+            
+            <!-- Historical Booking #3 -->
+            <div class="booking-card">
+                <div class="booking-header">
+                    <div class="booking-title">Beach Bungalow - Sunset Beach Resort</div>
+                    <div class="booking-status status-completed">Completed</div>
+                </div>
+                <div class="booking-details">
+                    <div class="booking-detail">
+                        <div class="detail-label">Booking ID</div>
+                        <div class="detail-value">BK-20241225-4231</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-in</div>
+                        <div class="detail-value">December 25, 2024</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Check-out</div>
+                        <div class="detail-value">January 2, 2025</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Guests</div>
+                        <div class="detail-value">2 Adults</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Total Amount</div>
+                        <div class="detail-value">$2,845.00</div>
+                    </div>
+                    <div class="booking-detail">
+                        <div class="detail-label">Payment Status</div>
+                        <div class="detail-value">Paid</div>
+                    </div>
+                </div>
+                <div class="booking-actions">
+                    <button class="btn btn-primary">View Details</button>
+                    <button class="btn btn-secondary">Book Again</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].className = tabcontent[i].className.replace(" active", "");
+            }
+            
+            tablinks = document.getElementsByClassName("tab");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            
+            document.getElementById(tabName).className += " active";
+            evt.currentTarget.className += " active";
+        }
+    </script>
+</body>
+</html>

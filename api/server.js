@@ -54,10 +54,12 @@ app.post('/api/login', (req, res) => {
         });
     });
 })
-
+  
 //REGISTER API 
 app.post('/api/register', (req, res) => {
     const { first_name, last_name, email, password, passport_number } = req.body;
+    const role = 'customer';
+    console.log(first_name, last_name, email, password, passport_number)
 
     bcrypt.hash(password, 10, (err, hashedPassword) => {
         console.log(hashedPassword)
@@ -66,7 +68,7 @@ app.post('/api/register', (req, res) => {
             return res.status(500).send({ error: 'Error hashing password' });
         }
 
-        db.query("INSERT INTO Users (first_name, last_name, email, password, passport_number) VALUES (?, ?, ?, ?, ?)", [first_name, last_name, email, hashedPassword, passport_number], (err, results) => {
+        db.query("INSERT INTO Users (first_name, last_name, email, password, role, passport_number) VALUES (?, ?, ?, ?, ?, ?)", [first_name, last_name, email, hashedPassword, role, passport_number], (err, results) => {
             if (err) {
                 return res.status(500).send({ error: 'Failed to register user' });
             }
@@ -77,6 +79,15 @@ app.post('/api/register', (req, res) => {
         });
     })
 
+})
+
+//AIRPORT API
+app.get('/airports', (req, res) => {
+    db.query('SELECT name, iata_code FROM Airports', (err, results) => {
+        if (err) return res.status(500).send(err);
+        console.log(results)
+        res.json(results);
+    })
 })
 
 //FLIGHT API
@@ -196,8 +207,8 @@ app.post('/payments', (req, res) => {
             VALUES (?, ?, ?, 'PENDING');`,
         [booking_id, amount, payment_method],
         (err, results) => {
-            if(err) return res.status(500).send(err)
-            res.json({ message: "Add payments success"})
+            if (err) return res.status(500).send(err)
+            res.json({ message: "Add payments success" })
         }
     );
 
@@ -209,22 +220,22 @@ app.post('/payments-confirmed', (req, res) => {
     db.query(`UPDATE Payments
             SET status = 'COMPLETED'
             WHERE booking_id = ?`,
-            [booking_id],
-            (err, results) => {
-                if(err) return res.status(500).send(err)
-            }
+        [booking_id],
+        (err, results) => {
+            if (err) return res.status(500).send(err)
+        }
     );
 
     db.query(`UPDATE Bookings
             SET status = 'CONFIRMED'
             WHERE id = ?`,
-            [booking_id],
-            (err, results) => {
-                if(err) return res.status(500).send(err)
-            }
+        [booking_id],
+        (err, results) => {
+            if (err) return res.status(500).send(err)
+        }
     );
 
-    res.json({ message: "payments successfully"})
+    res.json({ message: "payments successfully" })
 })
 
 //EDIT PROFILES

@@ -3,6 +3,7 @@ const express = require('express');
 
 function registerStaticRoutes(app) {
     app.use(express.static(path.join(__dirname, '../page')));
+    app.use(express.static(path.join(__dirname, '../js')));
     app.use('/styles', express.static(path.join(__dirname, '../styles')));
 
     app.get('/', (req, res) => {

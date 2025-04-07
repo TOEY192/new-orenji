@@ -5,6 +5,17 @@
     font-family: 'Poppins', sans-serif;
 }
 
+body {
+    background-color: #f5f7fa;
+    color: #333;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+
 /* สีหลักของธีม */
 :root {
     --primary-color: #ff6600;
@@ -57,20 +68,63 @@
     border-radius: 5px;
 }
 
-/* 🔹 Header ส่วนบน */
-.header {
-    background: url('https://source.unsplash.com/1600x900/?airplane,skyline') no-repeat center center/cover;
-    height: 450px;
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 60px 0;
+  }
+  
+  .feature {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .feature i {
+    font-size: 40px;
+    color: rgb(223, 167, 84);
+    margin-bottom: 20px;
+  }
+  
+  .feature h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+.hero {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://ik.imagekit.io/Orenji/1000_500.png?updatedAt=1743968951178');
+    background-size: cover;
+    background-position: center;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
     color: white;
-    font-size: 40px;
-    font-weight: bold;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    margin-top: 70px;
-}
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+  }
+  
+  .hero p {
+    font-size: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .search-box {
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin-top: -80px;
+    position: relative;
+    z-index: 10;
+  }
 
 /* 🔹 ส่วนจองตั๋ว */
 .booking-section {
@@ -164,6 +218,123 @@
     margin-top: 30px;
 }
 
+footer {
+    background-color: #333;
+    color: white;
+    padding: 40px 0;
+    margin-top: 60px;
+  }
+  
+  .footer-content {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+  
+  .footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+  }
+  
+  .footer-section ul {
+    list-style: none;
+  }
+  
+  .footer-section ul li {
+    margin-bottom: 10px;
+  }
+  
+  .footer-section ul li a {
+    color: #ccc;
+    text-decoration: none;
+  }
+  
+  .footer-bottom {
+    text-align: center;
+    padding-top: 30px;
+    border-top: 1px solid #444;
+    margin-top: 30px;
+  }
+  
+  /* Image gallery */
+  .image-gallery {
+    margin: 60px 0;
+  }
+  
+  .image-gallery h2 {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
+  
+  .gallery-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(2, 200px);
+    gap: 15px;
+  }
+  
+  .gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+  
+  .gallery-item:hover {
+    transform: scale(1.03);
+  }
+  
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .gallery-item:nth-child(1) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  
+  .gallery-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 15px;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+    color: white;
+    font-weight: bold;
+  }
+  
+  @media (max-width: 768px) {
+    .search-form {
+      grid-template-columns: 1fr;
+    }
+    
+    .features {
+      grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    .gallery-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .footer-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .gallery-container {
+      grid-template-columns: 1fr;
+    }
+  }
+
 /* Responsive Design */
 @media (max-width: 768px) {
     .navbar {
@@ -179,6 +350,10 @@
 
     .navbar .nav-links li {
         margin: 5px 0;
+    }
+
+    .visible{
+      display: none;
     }
 
     .booking-form {
