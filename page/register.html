@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+    <title>Registration Page</title>
     <style>
         * {
             margin: 0;
@@ -17,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             padding: 20px;
         }
         
@@ -49,45 +49,46 @@
             height: 24px;
         }
         
-        .login-container {
+        .register-container {
             background-color: rgba(255, 255, 255, 0.95);
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
             padding: 40px;
             width: 100%;
-            max-width: 430px;
+            max-width: 500px;
             backdrop-filter: blur(10px);
             transform: translateY(0);
             transition: transform 0.3s ease;
+            margin: 40px 0;
         }
         
-        .login-container:hover {
+        .register-container:hover {
             transform: translateY(-5px);
         }
         
-        .login-header {
+        .register-header {
             text-align: center;
             margin-bottom: 35px;
         }
         
-        .login-header h1 {
+        .register-header h1 {
             color: #333;
             font-size: 32px;
             margin-bottom: 10px;
             font-weight: 600;
         }
         
-        .login-header p {
+        .register-header p {
             color: #666;
             font-size: 16px;
         }
         
-        .login-form .form-group {
+        .register-form .form-group {
             margin-bottom: 25px;
             position: relative;
         }
         
-        .login-form label {
+        .register-form label {
             display: block;
             margin-bottom: 10px;
             color: #555;
@@ -95,8 +96,10 @@
             font-size: 15px;
         }
         
-        .login-form input[type="text"],
-        .login-form input[type="password"] {
+        .register-form input[type="text"],
+        .register-form input[type="email"],
+        .register-form input[type="password"],
+        .register-form input[type="tel"] {
             width: 100%;
             padding: 15px 20px;
             border: 2px solid #e1e1e1;
@@ -106,15 +109,17 @@
             background-color: #f9f9f9;
         }
         
-        .login-form input[type="text"]:focus,
-        .login-form input[type="password"]:focus {
+        .register-form input[type="text"]:focus,
+        .register-form input[type="email"]:focus,
+        .register-form input[type="password"]:focus,
+        .register-form input[type="tel"]:focus {
             border-color: #ff7043;
             outline: none;
             box-shadow: 0 0 0 4px rgba(255, 112, 67, 0.1);
             background-color: white;
         }
         
-        .login-form button {
+        .register-form button {
             width: 100%;
             padding: 15px;
             background: linear-gradient(135deg, #ff7043 0%, #ff5722 100%);
@@ -126,9 +131,10 @@
             cursor: pointer;
             transition: all 0.3s;
             box-shadow: 0 4px 15px rgba(255, 87, 34, 0.2);
+            margin-top: 10px;
         }
         
-        .login-form button:hover {
+        .register-form button:hover {
             transform: translateY(-2px);
             box-shadow: 0 7px 15px rgba(255, 87, 34, 0.3);
         }
@@ -150,6 +156,48 @@
             color: #e64a19;
             text-decoration: underline;
         }
+        
+        .name-group {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .name-group .form-group {
+            flex: 1;
+        }
+        
+        .terms {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 25px;
+        }
+        
+        .terms input {
+            margin-right: 10px;
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            accent-color: #ff5722;
+        }
+        
+        .terms label {
+            margin-bottom: 0;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .password-requirements {
+            font-size: 12px;
+            color: #777;
+            margin-top: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .name-group {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -160,31 +208,51 @@
         </svg>
     </a>
     
-    <div class="login-container">
-        <div class="login-header">
-            <h1>Welcome Back</h1>
-            <p>Please enter your credentials to continue</p>
+    <div class="register-container">
+        <div class="register-header">
+            <h1>Create Account</h1>
+            <p>Fill in your details to get started</p>
         </div>
         
-        <form class="login-form" id="login-form">
+        <form class="register-form" id="register-form">
+            <div class="name-group">
+                <div class="form-group">
+                    <label for="firstname">First Name</label>
+                    <input type="text" id="firstname" name="firstname" placeholder="Enter your first name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="lastname">Last Name</label>
+                    <input type="text" id="lastname" name="lastname" placeholder="Enter your last name" required>
+                </div>
+            </div>
+            
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="text" id="email" name="email" placeholder="Enter your email" required>
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
             </div>
             
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                <input type="password" id="password" name="password" placeholder="Choose a password" required>
+                <div class="password-requirements">
+                    Password must be at least 8 characters long and include uppercase, lowercase, number, and special character.
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="passport_number">passport_number</label>
+                <input type="text" id="passport_number" name="passport_number" placeholder="Choose a passport number" required>
             </div>
             
-            <button type="submit">Sign In</button>
+            <button id="btnSubmit" type="submit">Create Account</button>
         </form>
         
         <div class="form-footer">
-            <p>Don't have an account? <a href="register.html">Sign up</a></p>
+            <p>Already have an account? <a href="login.html">Sign in</a></p>
         </div>
     </div>
 
-    <script src="/login.js"></script>
+    <script src="/register.js"></script>
 </body>
 </html>
