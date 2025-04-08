@@ -22,7 +22,15 @@ document.getElementById('login-form').addEventListener('submit', (e) => {
             alert('Login successful!');
             const token = data.token; 
             localStorage.setItem('token', token);
+            const decodedToken = JSON.parse(atob(token.split('.')[1]));
+            const userRole = decodedToken.role;
             window.location.href = '/';
+            if (userRole !== 'admin') {
+                window.location.href = '/';
+            }
+            else {
+                window.location.href = '/admin.html'
+            }
         } else {
             alert('Invalid email or password');
         }
