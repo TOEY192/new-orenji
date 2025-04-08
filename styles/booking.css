@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+:root {
+    --primary-color: #ff8534;
+    --secondary-color: #fff;
+    --dark-color: #333;
+    --hover-color: #ff7418;
+}
+
+.detail {
+    background-color: white;
+    margin-top: 100px;
+    padding: 60px;
+    border-radius: 20px;
+}
+
+.flight {
+    font-size: 30px;
+    margin-bottom: 15px;
+}
+
+.plane {
+    position: relative;
+    margin: 15px 0;
+    width: 100%;
+    height: fit-content;
+    background-color: #ddd;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.plane::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 80px;
+    top: 70px;
+    left: 0;
+    background-color: #dddddd;
+    z-index: 100;
+}
+
+.seats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    row-gap: 90px;
+}
+
+.flex-item {
+    position: relative;
+    flex-basis: calc(100% / 10 - 10px);
+    border: 2px solid black;
+    border-radius: 15px;
+    padding: 15px 0;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    text-align: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.flex-item::before {
+    position: absolute;
+    content: "";
+    width: 80%;
+    height: 3px;
+    background-color: rgb(119, 212, 255);
+    top: -19px;
+    left: 5.5px;
+    border: 2px solid black;
+    border-radius: 15px;
+}
+
+.flex-item::after {
+    position: absolute;
+    border: 2px solid black;
+    content: "";
+    width: 80%;
+    height: 3px;
+    background-color: rgb(119, 212, 255);
+    bottom: -19px;
+    left: 5.5px;
+    border-radius: 15px;
+}
+
+.info {
+    margin-top: 30px;
+    font-size: 18px;
+}
+
+hr {
+    margin-top: 10px;
+}
+
+.footer {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.totalPrice {
+    font-size: 20px;
+}
+
+.btn-confirm {
+    padding: 10px 30px ;
+    font-size: 16px;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.btn-confirm:hover {
+    background-color: var(--hover-color);
+}

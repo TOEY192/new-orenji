@@ -4,13 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/booking.css">
     <link rel="stylesheet" href="../styles/navbar.css">
-    <link rel="stylesheet" href="../styles/mybooking.css">
-    <title>My Bookings</title>
+    <title>Document</title>
 </head>
 
 <body>
-    <!-- 🔹 Navbar -->
     <nav class="navbar">
         <div class="logo">✈ ORENJI AIRLINES</div>
         <ul class="nav-links">
@@ -22,20 +21,25 @@
             <li id="btn_logout"><a>Logout</a></li>
         </ul>
     </nav>
-
-    <header>
-        <div class="container">
-            <h1>My Bookings</h1>
-            <p>View and manage all your current and past bookings</p>
-        </div>
-    </header>
-
     <div class="container">
-        <div id="current1" class="tab-content active"></div>
+        <div class="detail">
+            <div class="flight" id="flight"></div>
+            <div class="plane">
+                <div class="seats" id="seats"></div>
+            </div>
+            <div class="info" id="info"></div>
+            <hr>
+            <div class="footer">
+                <p class="totalPrice" id="totalPrice">Total price: 0</p>
+                <button class="btn-confirm" id="btn-confirm">Confirm</button>
+            </div>
+        </div>
     </div>
-    <script src="/mybooking.js"></script>
-    <script src="/checkLoggedIn.js"></script>
-    <script src="/logout.js"></script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script src="/bookingPage.js"></script>
 </body>
 
 </html>

@@ -1,20 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles/search.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
     <title>Document</title>
 </head>
-<body>
-    <script>
-        window.onload = () => {
-    const booking = JSON.parse(localStorage.getItem('booking_info'));
-    if (!booking) return;
 
-    console.log('From:', booking.from);
-    console.log('To:', booking.to);
-    console.log('Departure Date:', booking.departure_date);
-};
-    </script>
+<body>
+    <!-- 🔹 Navbar -->
+    <nav class="navbar">
+        <div class="logo">✈ ORENJI AIRLINES</div>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="search.html">Search</a></li>
+            <li><a href="mybooking.html">My Booking</a></li>
+            <li id="btn_login"><a href="login.html">Login</a></li>
+            <li id="btn_register"><a href="register.html">Register</a></li>
+            <li id="btn_logout"><a>Logout</a></li>
+        </ul>
+    </nav>
+    <section class="booking-section">
+        <div class="search-box">
+            <h2>Find Your Flight</h2>
+            <form class="booking-form" id="booking-form">
+                <select id="from">
+                    <option disabled selected>Loading...</option>
+                </select>
+                <select id="to">
+                    <option disabled selected>Loading...</option>
+                </select>
+                <input id="departure_date" type="date">
+                <button type="submit">Search Flights</button>
+            </form>
+        </div>
+    </section>
+
+    <div class="container mt-5">
+        <div id="results" class="row">
+            <!-- ผลลัพธ์จะถูกแสดงที่นี่ -->
+        </div>
+    </div>
+
+    <script src="/searchPage.js" defer></script>
+    <script src="/checkLoggedIn.js"></script>
+    <script src="/logout.js"></script>
 </body>
+
 </html>
