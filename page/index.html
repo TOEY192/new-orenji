@@ -2,147 +2,146 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../styles/styles.css">
-    <title>ORENJI AIRLINES</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../styles/styles.css">
+  <title>ORENJI AIRLINES</title>
 </head>
 
 <body>
-    <!-- 🔹 Navbar -->
-    <nav class="navbar">
-        <div class="logo">✈ ORENJI AIRLINES</div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="#">Search</a></li>
-            <li><a href="mybooking.html">My Booking</a></li>
-            <li id="btn_login"><a href="login.html">Login</a></li>
-            <li id="btn_register"><a href="register.html">Register</a></li>
-            <li id="btn_logout"><a>Logout</a></li>
-        </ul>
-    </nav>
+  <!-- 🔹 Navbar -->
+  <nav class="navbar">
+    <div class="logo">✈ ORENJI AIRLINES</div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="#">Search</a></li>
+      <li><a href="mybooking.html">My Booking</a></li>
+      <li id="btn_login"><a href="login.html">Login</a></li>
+      <li id="btn_register"><a href="register.html">Register</a></li>
+      <li id="btn_logout"><a>Logout</a></li>
+    </ul>
+  </nav>
 
-    <div class="hero">
-        <div>
-            <h1>Find Your Next Adventure</h1>
-            <p>Discover amazing deals on flights to destinations worldwide.</p>
-        </div>
+  <div class="hero">
+    <div>
+      <h1>Find Your Next Adventure</h1>
+      <p>Discover amazing deals on flights to destinations worldwide.</p>
+    </div>
+  </div>
+
+  <section class="booking-section">
+    <div class="search-box">
+      <h2>Find Your Flight</h2>
+      <form class="booking-form" id="booking-form">
+        <select id="from">
+          <option disabled selected>Loading...</option>
+        </select>
+        <select id="to">
+          <option disabled selected>Loading...</option>
+        </select>
+        <input id="departure_date" type="date">
+        <button type="submit">Search Flights</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- New image gallery section -->
+  <div class="image-gallery">
+    <h2>Popular Destinations</h2>
+    <div class="gallery-container">
+      <div class="gallery-item">
+        <img src="https://ik.imagekit.io/Orenji/Paris600_400.png?updatedAt=1743966612895" alt="Paris">
+        <div class="gallery-caption">Paris, France</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://ik.imagekit.io/Orenji/Tokyo300_200.png?updatedAt=1743966892174" alt="Tokyo">
+        <div class="gallery-caption">Tokyo, Japan</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://ik.imagekit.io/Orenji/Newyork300_200.png?updatedAt=1743967125087" alt="New York">
+        <div class="gallery-caption">New York, USA</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://ik.imagekit.io/Orenji/Sydney300_200.png?updatedAt=1743967286544" alt="Sydney">
+        <div class="gallery-caption">Sydney, Australia</div>
+      </div>
+      <div class="gallery-item">
+        <img src="https://ik.imagekit.io/Orenji/Rome300_200.png?updatedAt=1743967550481" alt="Rome">
+        <div class="gallery-caption">Rome, Italy</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features">
+    <div class="feature">
+      <div style="font-size: 40px; color: rgb(223, 167, 84); margin-bottom: 20px;">💰</div>
+      <h3>Best Price Guarantee</h3>
+      <p>Find a lower price? We'll refund the difference!</p>
     </div>
 
-    <!-- 🔹 ส่วนค้นหาและจอง -->
-    <section class="booking-section">
-        <div class="search-box">
-            <h2>Find Your Flight</h2>
-            <form class="booking-form" id="booking-form">
-              <select id="from">
-                <option disabled selected>Loading...</option>
-              </select>
-              <select id="to">
-                <option disabled selected>Loading...</option>
-              </select>
-                <input id="departure_date" type="date">
-                <button type="submit">Search Flights</button>
-            </form>
-        </div>
-    </section>
+    <div class="feature">
+      <div style="font-size: 40px; color: rgb(223, 167, 84); margin-bottom: 20px;">🔒</div>
+      <h3>Secure Booking</h3>
+      <p>We use state-of-the-art encryption to protect your data.</p>
+    </div>
 
-    <!-- New image gallery section -->
-    <div class="image-gallery">
-        <h2>Popular Destinations</h2>
-        <div class="gallery-container">
-          <div class="gallery-item">
-            <img src="https://ik.imagekit.io/Orenji/Paris600_400.png?updatedAt=1743966612895" alt="Paris">
-            <div class="gallery-caption">Paris, France</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://ik.imagekit.io/Orenji/Tokyo300_200.png?updatedAt=1743966892174" alt="Tokyo">
-            <div class="gallery-caption">Tokyo, Japan</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://ik.imagekit.io/Orenji/Newyork300_200.png?updatedAt=1743967125087" alt="New York">
-            <div class="gallery-caption">New York, USA</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://ik.imagekit.io/Orenji/Sydney300_200.png?updatedAt=1743967286544" alt="Sydney">
-            <div class="gallery-caption">Sydney, Australia</div>
-          </div>
-          <div class="gallery-item">
-            <img src="https://ik.imagekit.io/Orenji/Rome300_200.png?updatedAt=1743967550481" alt="Rome">
-            <div class="gallery-caption">Rome, Italy</div>
-          </div>
+    <div class="feature">
+      <div style="font-size: 40px; color: rgb(223, 167, 84); margin-bottom: 20px;">🌍</div>
+      <h3>Global Coverage</h3>
+      <p>Over 1000 airlines and 500,000 hotels worldwide.</p>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h3>Company</h3>
+          <ul>
+            <li><a href="#">About Us</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Blog</a></li>
+          </ul>
         </div>
-      </div>
-      
-      <div class="features">
-        <div class="feature">
-          <div style="font-size: 40px; color: rgb(223, 167, 84); margin-bottom: 20px;">💰</div>
-          <h3>Best Price Guarantee</h3>
-          <p>Find a lower price? We'll refund the difference!</p>
+
+        <div class="footer-section">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Cancellation Policy</a></li>
+          </ul>
         </div>
-        
-        <div class="feature">
-          <div style="font-size: 40px; color: rgb(223, 167, 84); margin-bottom: 20px;">🔒</div>
-          <h3>Secure Booking</h3>
-          <p>We use state-of-the-art encryption to protect your data.</p>
+
+        <div class="footer-section">
+          <h3>Services</h3>
+          <ul>
+            <li><a href="#">Flight Booking</a></li>
+          </ul>
         </div>
-        
-        <div class="feature">
-          <div style="font-size: 40px; color: rgb(223, 167, 84); margin-bottom: 20px;">🌍</div>
-          <h3>Global Coverage</h3>
-          <p>Over 1000 airlines and 500,000 hotels worldwide.</p>
+
+        <div class="footer-section">
+          <h3>Follow Us</h3>
+          <ul>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+          </ul>
         </div>
       </div>
 
-      <footer>
-        <div class="container">
-          <div class="footer-content">
-            <div class="footer-section">
-              <h3>Company</h3>
-              <ul>
-                <li><a href="#">About Us</a></li>
-                <li><a href="#">Careers</a></li>
-                <li><a href="#">Press</a></li>
-                <li><a href="#">Blog</a></li>
-              </ul>
-            </div>
-            
-            <div class="footer-section">
-              <h3>Support</h3>
-              <ul>
-                <li><a href="#">Help Center</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Cancellation Policy</a></li>
-              </ul>
-            </div>
-            
-            <div class="footer-section">
-              <h3>Services</h3>
-              <ul>
-                <li><a href="#">Flight Booking</a></li>
-              </ul>
-            </div>
-            
-            <div class="footer-section">
-              <h3>Follow Us</h3>
-              <ul>
-                <li><a href="#">Facebook</a></li>
-                <li><a href="#">Twitter</a></li>
-                <li><a href="#">Instagram</a></li>
-                <li><a href="#">LinkedIn</a></li>
-              </ul>
-            </div>
-          </div>
-          
-          <div class="footer-bottom">
-            <p>&copy; 2025 OrenjiAirlines. All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
+      <div class="footer-bottom">
+        <p>&copy; 2025 OrenjiAirlines. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
 
-    <script src="/search.js"></script>
-    <script src="/checkLoggedIn.js"></script>
-    <script src="/logout.js"></script>
-      <script src="/loadAirports.js"></script>
+  <script src="/search.js"></script>
+  <script src="/checkLoggedIn.js"></script>
+  <script src="/logout.js"></script>
+  <script src="/loadAirports.js"></script>
 </body>
 </html>

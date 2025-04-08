@@ -1,6 +1,7 @@
 window.onload = () => {
     const token = localStorage.getItem('token');
-
+    alert('hiteitisthislik')
+    
     if (token) {
         document.getElementById('btn_login').style.display = 'none';
         document.getElementById('btn_register').style.display = 'none';
