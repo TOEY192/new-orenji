@@ -54,7 +54,7 @@ app.post('/api/login', (req, res) => {
         });
     });
 })
-  
+
 //REGISTER API 
 app.post('/api/register', (req, res) => {
     const { first_name, last_name, email, password, passport_number } = req.body;
@@ -92,10 +92,13 @@ app.get('/airports', (req, res) => {
 
 //FLIGHT API
 app.get('/flights', (req, res) => {
-    db.query('SELECT * FROM Flights', (err, results) => {
-        if (err) return res.status(500).send(err);
-        res.json(results)
-    })
+    db.query(`SELECT flight_code, departure_airport, arrival_airport,
+            departure_time, arrival_time, price, available_seats
+            FROM Flights`,
+        (err, results) => {
+            if (err) return res.status(500).send(err);
+            res.json(results)
+        })
 })
 
 //SEATS API ไว้หาที่นั่งที่ยังว่าง
@@ -239,3 +242,61 @@ app.post('/payments-confirmed', (req, res) => {
 })
 
 //EDIT PROFILES
+
+
+//ADMIN API
+
+//INSERT FLIGHT
+app.post('/add-flight', (req, res) => {
+    const { flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price } = req.body;
+    db.query(`INSERT INTO Flights (flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, available_seats)
+            VALUES (?, ?, ?, ?, ?, ?, ?);`,
+        [flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, 20],
+        (err, results) => {
+            if (err) return res.status(500).send(err)
+            console.log(results);
+            res.json(results)
+        })
+})
+
+app.get('/flights/:flightCode', (req, res) => {
+    const { flightCode } = req.params;
+    db.query('SELECT flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, available_seats FROM Flights WHERE flight_code = ?', [flightCode], (err, results) => {
+        if (err) return res.status(500).send(err)
+        console.log(results);
+        res.json(results)
+    });
+});
+
+app.delete('/flights/:flight_code', (req, res) => {
+    const { flight_code } = req.params;
+    db.query('DELETE FROM Flights WHERE flight_code = ?',
+        [flight_code],
+        (err, results) => {
+            if (err) return res.status(500).send(err)
+            console.log(results);
+            res.json(results)
+        }
+    )
+})
+
+app.put('/flights/:flightCode', async (req, res) => {
+    const { flightCode } = req.params;
+    const { flight_code, departure_time, arrival_time, price } = req.body;
+
+    console.log("hi yt")
+    try {
+        db.query(
+            'UPDATE Flights SET flight_code = ?, departure_time = ?, arrival_time = ?, price = ? WHERE flight_code = ?',
+            [flight_code, departure_time, arrival_time, price, flightCode],
+            (err, results) => {
+                if (err) return res.status(500).send(err)
+                console.log(results);
+                res.status(200).json({ message: 'Flight updated' });
+            }
+        );
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Failed to update flight');
+    }
+});
