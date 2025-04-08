@@ -59,7 +59,7 @@ app.post('/api/login', (req, res) => {
 app.post('/api/register', (req, res) => {
     const { first_name, last_name, email, password, passport_number } = req.body;
     const role = 'customer';
-    console.log(first_name, last_name, email, password, passport_number)
+    console.log(first_name, last_name, email, password, role, passport_number)
 
     bcrypt.hash(password, 10, (err, hashedPassword) => {
         console.log(hashedPassword)
@@ -81,6 +81,11 @@ app.post('/api/register', (req, res) => {
 
 })
 
+app.get('/user/:user_id', (req, res) => {
+    const { user_id } = req.params;
+
+})
+
 //AIRPORT API
 app.get('/airports', (req, res) => {
     db.query('SELECT name, iata_code FROM Airports', (err, results) => {
@@ -93,7 +98,7 @@ app.get('/airports', (req, res) => {
 //FLIGHT API
 app.get('/flights', (req, res) => {
     db.query(`SELECT flight_code, departure_airport, arrival_airport,
-            departure_time, arrival_time, price, available_seats
+            departure_time, arrival_time, price, available_seats, class
             FROM Flights`,
         (err, results) => {
             if (err) return res.status(500).send(err);
@@ -102,19 +107,21 @@ app.get('/flights', (req, res) => {
 })
 
 //SEATS API ไว้หาที่นั่งที่ยังว่าง
-app.get('/seats', (req, res) => {
-    db.query('SELECT seat_number, seat_class, is_booked FROM Seats', (err, results) => {
+app.get('/seats/:flight_id', (req, res) => {
+    const { flight_id } = req.params
+    db.query('SELECT seat_number, seat_class, is_booked FROM Seats WHERE flight_id = ?', [flight_id], (err, results) => {
         if (err) return res.status(500).send(err);
         res.json(results)
     })
 });
 
 //SEARCH API 
-app.post('/search', (req, res) => {
-    const { from, to, departure_date } = req.body;
+app.get('/search', (req, res) => {
+    const { from, to, departure_date } = req.query;
+    console.log(from, to, departure_date)
     const query = `
         SELECT flight_code, departure_airport, arrival_airport,
-            departure_time, arrival_time, price
+            departure_time, arrival_time, price, class
         FROM Flights 
         WHERE departure_airport = ? 
             AND arrival_airport = ? 
@@ -195,8 +202,8 @@ app.post('/booking', authToken, async (req, res) => {
             WHERE seat_number IN (?) AND flight_id = ?;`,
             [booking.id, seat, flight_id]
         );
-
-        res.status(201).json({ message: 'Booking Success' });
+        console.log(booking.id)
+        return res.status(201).json({ booking: booking.id });
     } catch (error) {
         console.error(error);
         return res.status(500).send(error.message);
@@ -211,15 +218,26 @@ app.post('/payments', (req, res) => {
         [booking_id, amount, payment_method],
         (err, results) => {
             if (err) return res.status(500).send(err)
-            res.json({ message: "Add payments success" })
+            return res.status(200).json({ message: "Add payments success" })
         }
     );
 
 })
 
 //PAYMENTS CONFIRMED API ใช้เมื่อจ่ายสำเร็จ
-app.post('/payments-confirmed', (req, res) => {
-    const { booking_id } = req.body;
+app.get('/payments-confirmed/:booking_id', (req, res) => {
+    const { booking_id } = req.params;
+    db.query(`SELECT status FROM Payments WHERE booking_id = ?`,
+        [booking_id],
+        (err, results) => {
+            if (err) return res.status(500).send(err)
+            res.json(results)
+        }
+    );
+})
+
+app.post('/payments-confirmed/:booking_id', (req, res) => {
+    const { booking_id } = req.params;
     db.query(`UPDATE Payments
             SET status = 'COMPLETED'
             WHERE booking_id = ?`,
@@ -241,6 +259,28 @@ app.post('/payments-confirmed', (req, res) => {
     res.json({ message: "payments successfully" })
 })
 
+app.get('/payments-redirect/:booking_id', (req, res) => {
+    const bookingId = req.params.booking_id;
+    res.send(`
+        <html>
+        <body>
+            <script>
+                fetch('/payments-confirmed/${bookingId}', { method: 'POST' })
+                    .then(res => res.json())
+                    .then(data => {
+                        alert('Payment Successful!');
+                        window.close();
+                    })
+                    .catch(() => {
+                        alert('Payment Failed');
+                    });
+            </script>
+        </body>
+        </html>
+    `);
+});
+
+
 //EDIT PROFILES
 
 
@@ -248,20 +288,24 @@ app.post('/payments-confirmed', (req, res) => {
 
 //INSERT FLIGHT
 app.post('/add-flight', (req, res) => {
-    const { flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price } = req.body;
-    db.query(`INSERT INTO Flights (flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, available_seats)
-            VALUES (?, ?, ?, ?, ?, ?, ?);`,
-        [flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, 20],
-        (err, results) => {
-            if (err) return res.status(500).send(err)
-            console.log(results);
-            res.json(results)
+    const { flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, aclass } = req.body;
+    db.query(`INSERT INTO Flights (flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, available_seats, class)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?);`,
+        [flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, 20, aclass],
+        (err, _results) => {
+            if (err) res.status(500).send(err);
         })
+
+    db.query('SELECT id FROM Flights ORDER BY id DESC LIMIT 1', (err, results) => {
+        if (err) res.status(500).send(err);
+        console.log(results)
+        return res.json({ results, aclass });
+    })
 })
 
 app.get('/flights/:flightCode', (req, res) => {
     const { flightCode } = req.params;
-    db.query('SELECT flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, available_seats FROM Flights WHERE flight_code = ?', [flightCode], (err, results) => {
+    db.query('SELECT id, flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, available_seats FROM Flights WHERE flight_code = ?', [flightCode], (err, results) => {
         if (err) return res.status(500).send(err)
         console.log(results);
         res.json(results)
@@ -300,3 +344,54 @@ app.put('/flights/:flightCode', async (req, res) => {
         res.status(500).send('Failed to update flight');
     }
 });
+
+
+app.post('/generate-seats/:flight_id/:aclass', (req, res) => {
+    const { flight_id, aclass } = req.params;
+
+    const rows = ['A', 'B'];
+    const cols = 10;
+    const seats = [];
+
+    for (let r = 0; r < rows.length; r++) {
+        for (let c = 1; c <= cols; c++) {
+            let seatClass = aclass;
+            seats.push([flight_id, `${rows[r]}${c}`, seatClass, false]);
+        }
+    }
+
+    const sql = `INSERT INTO Seats (flight_id, seat_number, seat_class, is_booked) VALUES ?`;
+    db.query(sql, [seats], (err, results) => {
+        if (err) return res.status(500).json({ error: err });
+        res.status(200).json({ message: 'Seats generated successfully', inserted: results.affectedRows });
+    });
+});
+
+app.get('/ticket/:user_id', (req, res) => {
+    const { user_id } = req.params;
+    const sql = `SELECT 
+                f.flight_code, 
+                f.departure_time, 
+                f.arrival_time, 
+                s.seat_number, 
+                s.seat_class, 
+                f.price AS payment_amount,  
+                p.payment_method, 
+                p.status AS payment_status, 
+                u.first_name, 
+                u.last_name, 
+                u.passport_number 
+                FROM Bookings b
+                JOIN Flights f ON b.flight_id = f.id
+                JOIN Booking_Seats bs ON b.id = bs.booking_id
+                JOIN Seats s ON bs.seat_id = s.id
+                JOIN Payments p ON b.id = p.booking_id
+                JOIN Users u ON b.user_id = u.id
+                WHERE b.id = ?;
+                `
+
+    db.query(sql, [user_id], (err, results) => {
+        if(err) res.status(500).send(err)
+        res.status(200).json(results)
+    })
+})

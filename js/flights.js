@@ -6,6 +6,7 @@ document.getElementById('modal-content').addEventListener('submit', (e) => {
     const to = document.getElementById('to').value;
     const departure_date = document.getElementById('departure_date').value;
     const arrival_date = document.getElementById('arrival_date').value;
+    const aclass = document.getElementById('class').value;
     const price = document.getElementById('price').value;
 
     fetch('/add-flight', {
@@ -19,13 +20,16 @@ document.getElementById('modal-content').addEventListener('submit', (e) => {
             arrival_airport: to,
             departure_time: departure_date,
             arrival_time: arrival_date,
-            price
+            price,
+            aclass
         })
     })
         .then(res => res.json())
-        .then(data => {
-            console.log('Flight added:', data);
-            window.location.href = '/flight.html';
+        .then(async data => {
+            const res = await fetch(`/generate-seats/${data.results[0].id}/${data.aclass}`, {method: 'POST'})
+            if(res.ok) alert('Created Flight Success!')
+            else alert('Failed')
+            window.location.href = '/flights.html';
         })
 });
 
@@ -53,10 +57,11 @@ async function editFlight(flightCode) {
 
     const res = await fetch(`/flights/${flightCode}`);
     const flight = await res.json();
+    console.log((flight[0].departure_time.slice(0, 16)))
 
     document.getElementById('edit_flight_code').value = flight[0].flight_code;
-    document.getElementById('edit_departure_date').value = flight[0].departure_time.split('T')[0];
-    document.getElementById('edit_arrival_date').value = flight[0].arrival_time.split('T')[0];
+    document.getElementById('edit_departure_date').value = flight[0].departure_time.slice(0, 16);
+    document.getElementById('edit_arrival_date').value = flight[0].arrival_time.slice(0, 16);
     document.getElementById('edit_price').value = flight[0].price;
 
     document.getElementById('editFlightForm').addEventListener('submit', async (e) => {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8">
   <title>Admin Dashboard</title>
@@ -10,68 +11,60 @@
     body {
       background-color: #f1f5f9;
     }
+
     .sidebar {
       min-height: 100vh;
       background-color: #0f172a;
       color: white;
     }
+
     .sidebar .nav-link {
       color: #cbd5e1;
       transition: all 0.2s ease;
     }
+
     .sidebar .nav-link:hover,
     .sidebar .nav-link.active {
       color: #38bdf8;
-      background-color: rgba(255,255,255,0.1);
+      background-color: rgba(255, 255, 255, 0.1);
       border-radius: 8px;
     }
+
     .card-hover:hover {
       transform: translateY(-4px);
       transition: 0.3s ease;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
+
 <body>
 
-<div class="d-flex">
-  <!-- Sidebar -->
-  <div class="sidebar p-4">
-    <h4 class="mb-4"><i class="bi bi-speedometer2"></i> Admin Panel</h4>
-    <nav class="nav flex-column">
-      <a href="flights.html" class="nav-link mb-2"><i class="bi bi-airplane"></i> การจัดการเที่ยวบิน</a>
-      <!-- <a href="users.html" class="nav-link"><i class="bi bi-people-fill"></i> การจัดการผู้ใช้งาน</a> -->
-    </nav>
-  </div>
+  <div class="d-flex">
+    <div class="sidebar p-4">
+      <h4 class="mb-4"><i class="bi bi-speedometer2"></i> Admin Panel</h4>
+      <nav class="nav flex-column">
+        <a href="flights.html" class="nav-link mb-2"><i class="bi bi-airplane"></i> Flight Management</a>
+      </nav>
+    </div>
 
-  <!-- Main Content -->
-  <div class="flex-grow-1 p-5">
-    <h2 class="mb-4 fw-semibold">แดชบอร์ดผู้ดูแลระบบ</h2>
+    <div class="flex-grow-1 p-5">
+      <h2 class="mb-4 fw-semibold">Admin Dashboard</h2>
 
-    <div class="row g-4">
-      <div class="col-md-6">
-        <div class="card shadow-sm card-hover border-0">
-          <div class="card-body">
-            <h5 class="card-title mb-3"><i class="bi bi-airplane me-2 text-primary"></i> การจัดการเที่ยวบิน</h5>
-            <p class="card-text">ดู เพิ่ม แก้ไข หรือลบข้อมูลเที่ยวบินทั้งหมดในระบบ</p>
-            <a href="flights.html" class="btn btn-outline-primary">ไปยังหน้าเที่ยวบิน</a>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card shadow-sm card-hover border-0">
+            <div class="card-body">
+              <h5 class="card-title mb-3"><i class="bi bi-airplane me-2 text-primary"></i> Flight Management</h5>
+              <p class="card-text">View, add, edit, or delete all flight information in the system</p>
+              <a href="flights.html" class="btn btn-outline-primary">Go to Flights Page</a>
+            </div>
           </div>
         </div>
       </div>
-
-      <!-- <div class="col-md-6">
-        <div class="card shadow-sm card-hover border-0">
-          <div class="card-body">
-            <h5 class="card-title mb-3"><i class="bi bi-people-fill me-2 text-success"></i> การจัดการผู้ใช้งาน</h5>
-            <p class="card-text">จัดการบัญชีผู้ใช้ ดูสถานะ และควบคุมการเข้าถึงระบบ</p>
-            <a href="users.html" class="btn btn-outline-success">ไปยังหน้าผู้ใช้งาน</a>
-          </div>
-        </div>
-      </div> -->
     </div>
   </div>
-</div>
-
-<script src="/checkRole.js"></script>
+  <script src="/checkRole.js"></script>
 </body>
+
 </html>
