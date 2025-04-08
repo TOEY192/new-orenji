@@ -48,21 +48,17 @@ async function deleteFlight(flightCode) {
 }
 
 async function editFlight(flightCode) {
-    // แสดง modal หรือฟอร์ม
     const modal = new bootstrap.Modal(document.getElementById('editFlightModal'));
     modal.show();
 
-    // ดึงข้อมูลเที่ยวบินจาก API
     const res = await fetch(`/flights/${flightCode}`);
     const flight = await res.json();
-    
-    // ใส่ค่าที่ดึงมาในฟอร์ม
+
     document.getElementById('edit_flight_code').value = flight[0].flight_code;
     document.getElementById('edit_departure_date').value = flight[0].departure_time.split('T')[0];
     document.getElementById('edit_arrival_date').value = flight[0].arrival_time.split('T')[0];
     document.getElementById('edit_price').value = flight[0].price;
 
-    // เมื่อบันทึกการแก้ไข
     document.getElementById('editFlightForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
