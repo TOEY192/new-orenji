@@ -2,10 +2,15 @@ let selectedSeats = [];
 let detail;
 
 window.onload = async () => {
-    const flight_code = localStorage.getItem('selected_flight');
 
+    
     const token = window.localStorage.getItem('token');
     if(!token) window.location.href = '/login.html'
+    
+    const flight_code = localStorage.getItem('selected_flight');
+
+    document.getElementById('loading-screen').style.display = 'block';
+    document.getElementById('main-screen').style.display = 'none';
 
     try {
         const res = await fetch(`/flights/${flight_code}`);
@@ -22,6 +27,10 @@ window.onload = async () => {
         const seats = await response.json();
         console.log(seats)
         renderSeats(seats)
+
+        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('main-screen').style.display = 'block';
+        
 
     } catch (err) {
         console.error('Failed to load airports:', err);
@@ -143,7 +152,6 @@ function showQRCodeAlert(id) {
                 .then(data => {
                     if(data[0].status === 'COMPLETED') {
                         alert('Payment Successful!');
-                        window.close()
                         window.location.href = '/mybooking.html'
                     }
                     else {

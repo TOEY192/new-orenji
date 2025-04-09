@@ -12,7 +12,9 @@ const translations = {
         to: 'to',
         tto: 'to',
         totalPrice: 'totalPrice: ',
-        confirm: 'Confirm'
+        confirm: 'Confirm',
+
+        loading: 'Loading flight details...'
     },
     th: {
         home: "หน้าแรก",
@@ -27,7 +29,9 @@ const translations = {
         to: 'ไป',
         tto: 'ถึง',
         totalPrice: 'ราคาทั้งหมด: ',
-        confirm: 'ยืนยัน'
+        confirm: 'ยืนยัน',
+
+        loading: 'กำลังโหลด...'
     }
 }
 
@@ -51,4 +55,6 @@ function changeLanguage() {
     document.getElementById('tto').textContent = translations[language].tto;
     document.getElementById('totalPrice').textContent = translations[language].totalPrice;
     document.getElementById('confirm').textContent = translations[language].confirm;
+
+    document.getElementById('loading-text').textContent = translations[language].loading;
 }
