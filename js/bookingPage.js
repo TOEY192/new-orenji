@@ -96,7 +96,7 @@ document.getElementById('btn-confirm').addEventListener('click', async (e) => {
         })
     })
 
-    if (res.ok) alert('Comfirm Booking')
+    if (res.ok) console.log('Comfirm Booking')
     else alert('Failed Booking')
 
     const booking_id = await res.json();
@@ -113,7 +113,7 @@ document.getElementById('btn-confirm').addEventListener('click', async (e) => {
         })
     })
     if (response.ok) {
-        alert('Created payment')
+        console.log('Created payment')
         showQRCodeAlert(booking_id.booking);
     }
     else alert('Failed Created payment')
@@ -147,11 +147,11 @@ function showQRCodeAlert(id) {
                         window.location.href = '/mybooking.html'
                     }
                     else {
-                        alert('Payment Failed, Please Scan QR Code to make payment')
+                        Swal.showValidationMessage('Payment Failed, Please Scan QR Code to make payment')
                     }
                 })
                 .catch(error => {
-                    alert('Payment Failed');
+                    Swal.showValidationMessage('Payment Failed');
                 });
         }
       });
