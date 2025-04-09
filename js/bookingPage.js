@@ -3,10 +3,10 @@ let detail;
 
 window.onload = async () => {
 
-    
+
     const token = window.localStorage.getItem('token');
-    if(!token) window.location.href = '/login.html'
-    
+    if (!token) window.location.href = '/login.html'
+
     const flight_code = localStorage.getItem('selected_flight');
 
     document.getElementById('loading-screen').style.display = 'block';
@@ -30,7 +30,7 @@ window.onload = async () => {
 
         document.getElementById('loading-screen').style.display = 'none';
         document.getElementById('main-screen').style.display = 'block';
-        
+
 
     } catch (err) {
         console.error('Failed to load airports:', err);
@@ -94,75 +94,81 @@ function updateTotalPrice() {
 
 document.getElementById('btn-confirm').addEventListener('click', async (e) => {
     e.preventDefault();
-    const res = await fetch('booking', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            flight_id: detail[0].id,
-            seat: selectedSeats
-        })
-    })
 
-    if (res.ok) console.log('Comfirm Booking')
-    else alert('Failed Booking')
-
-    const booking_id = await res.json();
-    console.log(booking_id.booking)
-    const response = await fetch('/payments', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-            booking_id: booking_id.booking,
-            amount: selectedSeats.length * detail[0].price,
-            payment_method: 'BANK_TRANSFER'
+    const p = document.getElementById('price').textContent;
+    if (p !== '0') {
+        const res = await fetch('booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                flight_id: detail[0].id,
+                seat: selectedSeats
+            })
         })
-    })
-    if (response.ok) {
-        console.log('Created payment')
-        showQRCodeAlert(booking_id.booking);
+
+        if (res.ok) console.log('Comfirm Booking')
+        else alert('Failed Booking')
+
+        const booking_id = await res.json();
+        console.log(booking_id.booking)
+        const response = await fetch('/payments', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                booking_id: booking_id.booking,
+                amount: selectedSeats.length * detail[0].price,
+                payment_method: 'BANK_TRANSFER'
+            })
+        })
+        if (response.ok) {
+            console.log('Created payment')
+            showQRCodeAlert(booking_id.booking);
+        }
+        else alert('Failed Created payment')
     }
-    else alert('Failed Created payment')
-
+    else {
+        alert('Please select seat')
+    }
 })
 
 function showQRCodeAlert(id) {
     const qrData = `${window.location.origin}/payments-redirect/${id}`;  // ตัวอย่าง URL สำหรับ QR Code
 
     QRCode.toDataURL(qrData, function (err, url) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-
-      Swal.fire({
-        title: 'Scan QR Code to make payment',
-        imageUrl: url,
-        imageAlt: 'QR Code',
-        showCancelButton: true,
-        cancelButtonText: 'Close',
-        confirmButtonText: 'Comfirm',
-        confirmButtonColor: '#3085d6',
-        preConfirm: function () {
-            return fetch(`/payments-confirmed/${id}`)
-                .then(response => response.json())
-                .then(data => {
-                    if(data[0].status === 'COMPLETED') {
-                        alert('Payment Successful!');
-                        window.location.href = '/mybooking.html'
-                    }
-                    else {
-                        Swal.showValidationMessage('Payment Failed, Please Scan QR Code to make payment')
-                    }
-                })
-                .catch(error => {
-                    Swal.showValidationMessage('Payment Failed');
-                });
+        if (err) {
+            console.error(err);
+            return;
         }
-      });
+
+        Swal.fire({
+            title: 'Scan QR Code to make payment',
+            imageUrl: url,
+            imageAlt: 'QR Code',
+            showCancelButton: true,
+            cancelButtonText: 'Close',
+            confirmButtonText: 'Comfirm',
+            confirmButtonColor: '#3085d6',
+            preConfirm: function () {
+                return fetch(`/payments-confirmed/${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data[0].status === 'COMPLETED') {
+                            alert('Payment Successful!');
+                            window.location.href = '/mybooking.html'
+                        }
+                        else {
+                            Swal.showValidationMessage('Payment Failed, Please Scan QR Code to make payment')
+                        }
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage('Payment Failed');
+                    });
+            }
+        });
     });
 }
 

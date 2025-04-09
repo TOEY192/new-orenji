@@ -1,7 +1,6 @@
 document.getElementById('modal-content').addEventListener('submit', (e) => {
     e.preventDefault();
 
-    
     const flight_code = document.getElementById('iata_code').value;
     const from = document.getElementById('from').value;
     const to = document.getElementById('to').value;
@@ -56,6 +55,7 @@ async function deleteFlight(flightCode) {
 async function editFlight(flightCode) {
     const modal = new bootstrap.Modal(document.getElementById('editFlightModal'));
     modal.show();
+    console.log(flightCode)
 
     const res = await fetch(`/flights/${flightCode}`);
     const flight = await res.json();
