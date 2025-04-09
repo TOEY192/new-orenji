@@ -3,18 +3,21 @@ let detail;
 
 window.onload = async () => {
     const flight_code = localStorage.getItem('selected_flight');
-    const header = document.getElementById('flight');
-    const info = document.getElementById('info');
-    header.innerHTML = '';
-    info.innerHTML = '';
+
+    const token = window.localStorage.getItem('token');
+    if(!token) window.location.href = '/login.html'
 
     try {
         const res = await fetch(`/flights/${flight_code}`);
         detail = await res.json();
         console.log(detail)
-        header.innerHTML = `Flight code : ${detail[0].flight_code}`;
-        info.innerHTML = `Details : ${detail[0].departure_airport} to ${detail[0].arrival_airport}, ${formatDate(detail[0].departure_time)} to ${formatDate(detail[0].arrival_time)}`;
+        console.log(detail[0].flight_code)
+        document.getElementById('f').textContent = `${detail[0].flight_code}`;
 
+        document.getElementById('departure').textContent = `${detail[0].departure_airport}`
+        document.getElementById('arrival').textContent = `${detail[0].arrival_airport}`
+        document.getElementById('d-time').textContent = `${formatDate(detail[0].departure_time)}`
+        document.getElementById('a-time').textContent = `${formatDate(detail[0].arrival_time)}`
         const response = await fetch(`/seats/${detail[0].id}`);
         const seats = await response.json();
         console.log(seats)
@@ -51,7 +54,7 @@ function renderSeats(seats) {
         `;
     }).join('');
 
-    document.getElementById('totalPrice').innerHTML = `Total price: ${selectedSeats.length * seatPrice}`;
+    document.getElementById('price').textContent = `${selectedSeats.length * seatPrice}`;
 }
 
 function toggleSeatSelection(seatNumber, isBooked) {
@@ -75,46 +78,45 @@ function toggleSeatSelection(seatNumber, isBooked) {
 }
 
 function updateTotalPrice() {
-    const totalPriceElement = document.getElementById('totalPrice');
+    const totalPriceElement = document.getElementById('price');
     const seatPrice = detail[0].price;
-    totalPriceElement.innerHTML = `Total price: ${selectedSeats.length * seatPrice}`;
+    totalPriceElement.innerHTML = `${selectedSeats.length * seatPrice}`;
 }
 
 document.getElementById('btn-confirm').addEventListener('click', async (e) => {
     e.preventDefault();
-    showQRCodeAlert(1);
-    // const res = await fetch('booking', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         flight_id: detail[0].id,
-    //         seat: selectedSeats
-    //     })
-    // })
+    const res = await fetch('booking', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            flight_id: detail[0].id,
+            seat: selectedSeats
+        })
+    })
 
-    // if (res.ok) alert('Comfirm Booking')
-    // else alert('Failed Booking')
+    if (res.ok) alert('Comfirm Booking')
+    else alert('Failed Booking')
 
-    // const booking_id = await res.json();
-    // console.log(booking_id.booking)
-    // const response = await fetch('/payments', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     body: JSON.stringify({
-    //         booking_id: booking_id.booking,
-    //         amount: selectedSeats.length * detail[0].price,
-    //         payment_method: 'BANK_TRANSFER'
-    //     })
-    // })
-    // if (response.ok) {
-    //     alert('Created payment')
-    //     showQRCodeAlert(booking_id.booking);
-    // }
-    // else alert('Failed Created payment')
+    const booking_id = await res.json();
+    console.log(booking_id.booking)
+    const response = await fetch('/payments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            booking_id: booking_id.booking,
+            amount: selectedSeats.length * detail[0].price,
+            payment_method: 'BANK_TRANSFER'
+        })
+    })
+    if (response.ok) {
+        alert('Created payment')
+        showQRCodeAlert(booking_id.booking);
+    }
+    else alert('Failed Created payment')
 
 })
 

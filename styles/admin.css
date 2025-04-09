@@ -1,0 +1,58 @@
+body {
+    background-color: #f1f5f9;
+}
+
+a {
+    text-decoration: none;
+}
+:root {
+    --btn: #253c79;
+    --btn-hover: #20315f;
+}
+
+.sidebar {
+    min-height: 100vh;
+    background-color: #0f172a;
+    color: white;
+}
+
+.sidebar .nav-link {
+    padding: 8px 12px;
+    color: #cbd5e1;
+    transition: all 0.2s ease;
+}
+
+.sidebar .nav-link:hover,
+.sidebar .nav-link.active {
+    color: #38bdf8;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    transition: 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+span {
+    margin-left: 10px;
+}
+
+.bn {
+    background-color: var(--btn);
+    color: white;
+    border: 2px solid transparent;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Arial', sans-serif;
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.bn:hover {
+    background-color: var(--btn-hover); 
+    border: 2px solid transparent;
+}

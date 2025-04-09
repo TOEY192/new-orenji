@@ -26,7 +26,7 @@ body {
 /* 🔹 ส่วนจองตั๋ว */
 .booking-section {
     text-align: center;
-    padding: 150px 20px;
+    padding: 150px 20px 50px 20px;
     background: var(--secondary-color);
 }
 
