@@ -59,10 +59,10 @@ app.post('/api/login', (req, res) => {
 app.post('/api/register', (req, res) => {
     const { first_name, last_name, email, password, passport_number } = req.body;
     const role = 'customer';
-    console.log(first_name, last_name, email, password, role, passport_number)
+    //console.log(first_name, last_name, email, password, role, passport_number)
 
     bcrypt.hash(password, 10, (err, hashedPassword) => {
-        console.log(hashedPassword)
+        //console.log(hashedPassword)
         if (err) {
             console.log('Error hashing password:', err);
             return res.status(500).send({ error: 'Error hashing password' });
@@ -90,7 +90,7 @@ app.get('/user/:user_id', (req, res) => {
 app.get('/airports', (req, res) => {
     db.query('SELECT name, iata_code FROM Airports', (err, results) => {
         if (err) return res.status(500).send(err);
-        console.log(results)
+        //console.log(results)
         res.json(results);
     })
 })
@@ -118,7 +118,7 @@ app.get('/seats/:flight_id', (req, res) => {
 //SEARCH API 
 app.get('/search', (req, res) => {
     const { from, to, departure_date } = req.query;
-    console.log(from, to, departure_date)
+    //console.log(from, to, departure_date)
     const query = `
         SELECT flight_code, departure_airport, arrival_airport,
             departure_time, arrival_time, price, class
@@ -129,7 +129,7 @@ app.get('/search', (req, res) => {
 
     db.query(query, [from, to, departure_date], (err, results) => {
         if (err) return res.status(500).send(err);
-        console.log(results);
+        //console.log(results);
         res.json(results);
     });
 });
@@ -202,7 +202,7 @@ app.post('/booking', authToken, async (req, res) => {
             WHERE seat_number IN (?) AND flight_id = ?;`,
             [booking.id, seat, flight_id]
         );
-        console.log(booking.id)
+        //console.log(booking.id)
         return res.status(201).json({ booking: booking.id });
     } catch (error) {
         console.error(error);
@@ -298,7 +298,7 @@ app.post('/add-flight', (req, res) => {
 
     db.query('SELECT id FROM Flights ORDER BY id DESC LIMIT 1', (err, results) => {
         if (err) res.status(500).send(err);
-        console.log(results)
+        //console.log(results)
         return res.json({ results, aclass });
     })
 })
@@ -307,7 +307,7 @@ app.get('/flights/:flightCode', (req, res) => {
     const { flightCode } = req.params;
     db.query('SELECT id, flight_code, departure_airport, arrival_airport, departure_time, arrival_time, price, available_seats FROM Flights WHERE flight_code = ?', [flightCode], (err, results) => {
         if (err) return res.status(500).send(err)
-        console.log(results);
+        //console.log(results);
         res.json(results)
     });
 });
@@ -318,7 +318,7 @@ app.delete('/flights/:flight_code', (req, res) => {
         [flight_code],
         (err, results) => {
             if (err) return res.status(500).send(err)
-            console.log(results);
+            //console.log(results);
             res.json(results)
         }
     )
@@ -328,14 +328,13 @@ app.put('/flights/:flightCode', async (req, res) => {
     const { flightCode } = req.params;
     const { flight_code, departure_time, arrival_time, price } = req.body;
 
-    console.log("hi yt")
     try {
         db.query(
             'UPDATE Flights SET flight_code = ?, departure_time = ?, arrival_time = ?, price = ? WHERE flight_code = ?',
             [flight_code, departure_time, arrival_time, price, flightCode],
             (err, results) => {
                 if (err) return res.status(500).send(err)
-                console.log(results);
+                //console.log(results);
                 res.status(200).json({ message: 'Flight updated' });
             }
         );
