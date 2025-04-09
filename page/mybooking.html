@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/navbar.css">
     <link rel="stylesheet" href="../styles/mybooking.css">
+    <link rel="stylesheet" href="../styles/languageBtn.css">
     <title>My Bookings</title>
 </head>
 
@@ -20,13 +21,14 @@
             <li id="btn_login"><a href="login.html">Login</a></li>
             <li id="btn_register"><a href="register.html">Register</a></li>
             <li id="btn_logout"><a>Logout</a></li>
+            <button id="languageSelect" onclick="change();changeLanguage();">English</button>
         </ul>
     </nav>
 
     <header>
         <div class="container">
-            <h1>My Bookings</h1>
-            <p>View and manage all your current and past bookings</p>
+            <h1 id="myBookingsHeader">My Bookings</h1>
+            <p id="myBookingsDescription">View all your bookings</p>
         </div>
     </header>
 
@@ -36,6 +38,8 @@
     <script src="/mybooking.js"></script>
     <script src="/checkLoggedIn.js"></script>
     <script src="/logout.js"></script>
+    <script src="/translate/mybookingT.js"></script>
+    <script src="/translate/btn.js"></script>
 </body>
 
 </html>

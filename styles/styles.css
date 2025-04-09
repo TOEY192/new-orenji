@@ -84,8 +84,6 @@ body {
 /* 🔹 ส่วนจองตั๋ว */
 .booking-section {
   text-align: center;
-  padding: 50px 20px;
-  background: var(--secondary-color);
 }
 
 .booking-section h2 {
@@ -213,9 +211,8 @@ footer {
   margin-top: 30px;
 }
 
-/* Image gallery */
 .image-gallery {
-  margin: 60px 0;
+  margin-top: 40px;
 }
 
 .image-gallery h2 {
@@ -236,6 +233,7 @@ footer {
   overflow: hidden;
   border-radius: 8px;
   transition: transform 0.3s;
+  cursor: pointer;
 }
 
 .gallery-item:hover {

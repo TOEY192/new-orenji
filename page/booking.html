@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/booking.css">
     <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/languageBtn.css">
     <title>Document</title>
 </head>
 
@@ -19,19 +20,32 @@
             <li id="btn_login"><a href="login.html">Login</a></li>
             <li id="btn_register"><a href="register.html">Register</a></li>
             <li id="btn_logout"><a>Logout</a></li>
+            <button id="languageSelect" onclick="change();changeLanguage();">English</button>
         </ul>
     </nav>
     <div class="container">
         <div class="detail">
-            <div class="flight" id="flight"></div>
+            <div class="flight"><span id="flights">Flight:</span> <p id="f"></p></div>
             <div class="plane">
                 <div class="seats" id="seats"></div>
             </div>
-            <div class="info" id="info"></div>
+            <div class="info">
+                <p id="detail">Detail:</p>
+                <p id="departure"></p>
+                <p id="to"> to </p>
+                <p id="arrival"></p>
+                <p id="time">:</p>
+                <p id="d-time"></p>
+                <p id="tto">to</p>
+                <p id="a-time"></p>
+            </div>
             <hr>
             <div class="footer">
-                <p class="totalPrice" id="totalPrice">Total price: 0</p>
-                <button class="btn-confirm" id="btn-confirm">Confirm</button>
+                <div style="display: flex; gap: 5px;">
+                    <p class="totalPrice" id="totalPrice">Total price:</p>
+                    <p id="price"></p>
+                </div>
+                <button class="btn-confirm" id="btn-confirm" style="color: white;"><p id="confirm">Confirm</p></button>
             </div>
         </div>
     </div>
@@ -39,7 +53,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script src="/checkLoggedIn.js"></script>
     <script src="/bookingPage.js"></script>
+    <script src="/translate/bookingT.js"></script>
+    <script src="/translate/btn.js"></script>
 </body>
 
 </html>
