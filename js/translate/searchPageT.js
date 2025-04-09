@@ -108,5 +108,5 @@ function changeLanguageSearch() {
         s.forEach(d => {
             d.textContent = translations[language].selectFlight;
         });
-    }, 300);
+    }, 100);
 }

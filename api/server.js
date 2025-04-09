@@ -298,7 +298,7 @@ app.post('/add-flight', (req, res) => {
 
     db.query('SELECT id FROM Flights ORDER BY id DESC LIMIT 1', (err, results) => {
         if (err) res.status(500).send(err);
-        //console.log(results)
+        console.log(results)
         return res.json({ results, aclass });
     })
 })

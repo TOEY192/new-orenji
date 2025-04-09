@@ -1,13 +1,15 @@
 document.getElementById('modal-content').addEventListener('submit', (e) => {
     e.preventDefault();
 
+    
     const flight_code = document.getElementById('iata_code').value;
     const from = document.getElementById('from').value;
     const to = document.getElementById('to').value;
     const departure_date = document.getElementById('departure_date').value;
     const arrival_date = document.getElementById('arrival_date').value;
-    const aclass = document.getElementById('class').value;
-    const price = document.getElementById('price').value;
+    const aclass = document.getElementById('aclass').value;
+    const price = document.getElementById('aprice').value;
+    console.log(aclass, price)
 
     fetch('/add-flight', {
         method: 'POST',
