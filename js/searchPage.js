@@ -69,6 +69,7 @@ function renderResults(flights) {
         </div>
         </div>
     `).join('');
+    changeLanguageSearch()
 }
 
 function selectFlight(flightCode) {
