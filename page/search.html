@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../styles/search.css">
     <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/languageBtn.css">
     <title>Document</title>
 </head>
 
@@ -20,33 +21,39 @@
             <li id="btn_login"><a href="login.html">Login</a></li>
             <li id="btn_register"><a href="register.html">Register</a></li>
             <li id="btn_logout"><a>Logout</a></li>
+            <button id="languageSelect" onclick="change();changeLanguage();">English</button>
         </ul>
     </nav>
-    <section class="booking-section">
-        <div class="search-box">
-            <h2>Find Your Flight</h2>
-            <form class="booking-form" id="booking-form">
-                <select id="from">
-                    <option disabled selected>Loading...</option>
-                </select>
-                <select id="to">
-                    <option disabled selected>Loading...</option>
-                </select>
-                <input id="departure_date" type="date">
-                <button type="submit">Search Flights</button>
-            </form>
-        </div>
-    </section>
+    <div style="background-color: white;">
+        <div class="container">
+            <section class="booking-section">
+                <div class="search-box">
+                    <h2 id="findFlight">Find Your Flight</h2>
+                    <form class="booking-form" id="booking-form">
+                        <select id="from">
+                            <option disabled selected>Loading...</option>
+                        </select>
+                        <select id="to">
+                            <option disabled selected>Loading...</option>
+                        </select>
+                        <input id="departure_date" type="date">
+                        <button type="submit" onclick="changeLanguageSearch()" id="searchFlights">Search
+                            Flights</button>
+                    </form>
+                </div>
+            </section>
 
-    <div class="container mt-5">
-        <div id="results" class="row">
-            <!-- ผลลัพธ์จะถูกแสดงที่นี่ -->
+            <div class="mt-5">
+                <div id="results" class="row"></div>
+            </div>
         </div>
     </div>
 
     <script src="/searchPage.js" defer></script>
     <script src="/checkLoggedIn.js"></script>
     <script src="/logout.js"></script>
+    <script src="/translate/searchPageT.js"></script>
+    <script src="/translate/btn.js"></script>
 </body>
 
 </html>

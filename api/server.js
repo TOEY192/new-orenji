@@ -387,7 +387,7 @@ app.get('/ticket/:user_id', (req, res) => {
                 JOIN Seats s ON bs.seat_id = s.id
                 JOIN Payments p ON b.id = p.booking_id
                 JOIN Users u ON b.user_id = u.id
-                WHERE b.id = ?;
+                WHERE u.id = ?;
                 `
 
     db.query(sql, [user_id], (err, results) => {
