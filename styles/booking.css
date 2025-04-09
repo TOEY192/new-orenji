@@ -137,3 +137,17 @@ hr {
 .btn-confirm:hover {
     background-color: var(--hover-color);
 }
+
+/* loading */
+#loading-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    height: 445px;
+    margin-top: 100px;
+    padding: 60px;
+    border-radius: 20px;
+    text-align: center;
+    font-size: 24px;
+}

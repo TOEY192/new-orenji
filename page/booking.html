@@ -23,9 +23,15 @@
             <button id="languageSelect" onclick="change();changeLanguage();">English</button>
         </ul>
     </nav>
-    <div class="container">
+
+    <div class="container" id="loading-screen" style=" text-align: center; padding: 20px;">
+        <p id="loading-text">Loading flight details...</p>
+    </div>
+    <div class="container" id="main-screen">
         <div class="detail">
-            <div class="flight"><span id="flights">Flight:</span> <p id="f"></p></div>
+            <div class="flight"><span id="flights">Flight:</span>
+                <p id="f"></p>
+            </div>
             <div class="plane">
                 <div class="seats" id="seats"></div>
             </div>
@@ -45,7 +51,9 @@
                     <p class="totalPrice" id="totalPrice">Total price:</p>
                     <p id="price"></p>
                 </div>
-                <button class="btn-confirm" id="btn-confirm" style="color: white;"><p id="confirm">Confirm</p></button>
+                <button class="btn-confirm" id="btn-confirm" style="color: white;">
+                    <p id="confirm">Confirm</p>
+                </button>
             </div>
         </div>
     </div>
