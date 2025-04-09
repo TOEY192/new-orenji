@@ -58,7 +58,7 @@ function renderResults(flights) {
     resultsContainer.innerHTML = flights.map(flight => `
       <div class="search-result-card">
         <div>
-        <h4><span id="flight">Flight: </span>${flight.flight_code} <span id="cname" class="${flight.class === 'Economy' ? 'eco' : (flights.class === 'Business' ? 'busi' : 'fclass')}">(${flight.class})</span></h4>
+        <h4><span id="flight">Flight: </span>${flight.flight_code} <span id="cname" class="${flight.class === 'Economy' ? 'eco' : (flight.class === 'Business' ? 'busi' : 'fclass')}">(${flight.class})</span></h4>
         <p><strong>${flight.departure_airport}</strong> ➡️ <strong>${flight.arrival_airport}</strong></p>
         <p><span id="departureTime">Departure Time: </span>${formatDate(flight.departure_time)}</p>
         <p><span id="arrivalTime">Arrival Time: </span>${formatDate(flight.arrival_time)}</p>
