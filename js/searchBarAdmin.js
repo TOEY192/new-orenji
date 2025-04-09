@@ -10,8 +10,9 @@ function filterFlights(searchQuery) {
         const flightCode = row.cells[0].textContent.toLowerCase();
         const departureAirport = row.cells[1].textContent.toLowerCase();
         const arrivalAirport = row.cells[2].textContent.toLowerCase();
+        const aclass = row.cells[7].textContent.toLowerCase();
 
-        if (flightCode.includes(searchQuery) || departureAirport.includes(searchQuery) || arrivalAirport.includes(searchQuery)) {
+        if (flightCode.includes(searchQuery) || departureAirport.includes(searchQuery) || arrivalAirport.includes(searchQuery) || aclass.includes(searchQuery)) {
             row.style.display = '';
         } else {
             row.style.display = 'none';

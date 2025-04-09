@@ -19,6 +19,7 @@ async function loadFlights() {
         <td>${formatDate(flight.arrival_time)}</td>
         <td>${flight.price}</td>
         <td>${flight.available_seats}</td>
+        <td>${flight.class}</td>
         <td>
           <button class="btn btn-sm btn-warning" onclick="editFlight('${flight.flight_code}')"><i class="bi bi-pencil"></i></button>
           <button class="btn btn-sm btn-danger" id="btn-del" onclick="deleteFlight('${flight.flight_code}')"><i class="bi bi-trash"></i></button>
