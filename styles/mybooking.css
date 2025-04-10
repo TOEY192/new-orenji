@@ -108,6 +108,11 @@ h1 {
     color: #28a745;
 }
 
+.status-pending {
+    background-color: #e6f7e6;
+    color: #fff56f;
+}
+
 .booking-details {
     display: flex;
     flex-wrap: wrap;
@@ -154,3 +159,17 @@ h1 {
     margin-bottom: 15px;
 }
 
+#getqr {
+    background-color: #FFA500;
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    cursor: pointer;
+}
+
+#getqr:hover {
+    background-color: #FF8C00; 
+}

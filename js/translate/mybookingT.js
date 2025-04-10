@@ -12,6 +12,7 @@ const translations = {
         myBookingsDescription: "View all your bookings",
 
         confirm: 'Confirmed',
+        pending: 'Pending',
         departureTime: 'Departure Time',
         arrivalTime: 'Arrival Time',
         seat: "Seat number",
@@ -19,7 +20,9 @@ const translations = {
         busi: '(Business)',
         fclass: '(First Class)',
         price: 'Price: ',
-        payment: 'Payment Status'
+        payment: 'Payment Status',
+        scanqr: 'Scan QR Code: '
+
     },
     th: {
         home: "หน้าแรก",
@@ -34,6 +37,7 @@ const translations = {
         myBookingsDescription: "ดูการจองของคุณทั้งหมด",
 
         confirm: 'สำเร็จ',
+        pending: 'รอชำระเงิน',
         departureTime: 'เวลาออกเดินทาง',
         arrivalTime: 'เวลาเดินทางถึง',
         seat: "เลขที่นั่ง",
@@ -41,7 +45,8 @@ const translations = {
         busi: '(ชั้นธุรกิจ)',
         fclass: '(ชั้นหนึ่ง)',
         price: 'ราคา: ',
-        payment: 'สถานะชําระเงิน'
+        payment: 'สถานะชําระเงิน',
+        scanqr: 'สแกนคิวอาร์โค้ด: '
     }
 }
 
@@ -99,6 +104,11 @@ function changeLanguage() {
         const py = document.querySelectorAll('#payment');
         py.forEach(d => {
             d.textContent = translations[language].payment;
+        });
+
+        const q = document.querySelectorAll('#scanqr');
+        q.forEach(d => {
+            d.textContent = translations[language].scanqr;
         });
     }, 100);
     
