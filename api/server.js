@@ -15,6 +15,7 @@ app.use(cookieParser());
 
 const db = require('./database');
 const authToken = require('./auth')
+const checkRole = require('./checkRole')
 
 const staticRoutes = require('./staticRoute');
 staticRoutes(app);
@@ -29,6 +30,10 @@ app.get('/check-login', (req, res) => {
     } catch (error) {
         res.status(500).send(error)
     }
+});
+
+app.get('/check-role', checkRole, (req, res) => {
+    res.send('Welcome to the admin dashboard');
 });
 
 //LOGIN API
