@@ -268,7 +268,6 @@ app.get('/payments-redirect/:booking_id', (req, res) => {
                     .then(res => res.json())
                     .then(data => {
                         alert('Payment Successful!');
-                        window.close();
                     })
                     .catch(() => {
                         alert('Payment Failed');
