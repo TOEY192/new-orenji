@@ -37,7 +37,7 @@ window.onload = async () => {
                     <div class="detail-label"><p id="payment">Payment Status</p></div>
                     <div class="detail-value">${ticket.payment_status.toLowerCase()}</div>
                 </div>
-                <div class="booking-detail" id="pay" style="${ticket.payment_status.toLowerCase() === 'completed' ? 'display:block;' : 'display:block;'} margin-bottom: 0">
+                <div class="booking-detail" id="pay" style="${ticket.payment_status.toLowerCase() === 'completed' ? 'display:none;' : 'display:block;'} margin-bottom: 0">
                     <span style="display: block; margin: 10px 0 5px 0; background-color:rgb(235, 235, 235); height: 1px; width: 100%;"></span>
 
                     <div style="display:flex; align-items: center; gap: 7px; margin-top: 12px">
