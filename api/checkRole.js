@@ -13,15 +13,13 @@ function checkRole(req, res, next) {
             return res.status(403).send('Forbidden');
         }
 
+        console.log(decoded.role)
         if (decoded.role === 'admin') {
             next(); 
         } else {
-            res.redirect('/index.html');
             return res.status(403).send('Forbidden');
         }
     });
 }
 
-app.get('/check-role', checkRole, (req, res) => {
-    res.send('Welcome to the admin dashboard');
-});
+module.exports = checkRole;

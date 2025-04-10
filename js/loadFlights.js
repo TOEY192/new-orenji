@@ -1,8 +1,4 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const token = window.localStorage.getItem('token')
-
-    if(!token) window.location.href = '/'
-
     await loadFlights();
 });
 
