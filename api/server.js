@@ -387,6 +387,7 @@ app.post('/generate-seats/:flight_id/:aclass', (req, res) => {
 app.get('/ticket/:user_id', (req, res) => {
     const { user_id } = req.params;
     const sql = `SELECT 
+                b.id,
                 f.flight_code, 
                 f.departure_time, 
                 f.arrival_time, 

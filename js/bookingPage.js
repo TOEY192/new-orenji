@@ -144,10 +144,6 @@ function showQRCodeAlert(id) {
             return;
         }
 
-        window.onbeforeunload = function() {
-            return "You cannot leave this page without confirming the payment!";
-        };
-
         Swal.fire({
             title: 'Scan QR Code to make payment',
             imageUrl: url,
