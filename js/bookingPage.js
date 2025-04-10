@@ -136,7 +136,7 @@ document.getElementById('btn-confirm').addEventListener('click', async (e) => {
 })
 
 function showQRCodeAlert(id) {
-    const qrData = `${window.location.origin}/payments-redirect/${id}`;  // ตัวอย่าง URL สำหรับ QR Code
+    const qrData = `${window.location.origin}/payments-redirect/${id}`;
 
     QRCode.toDataURL(qrData, function (err, url) {
         if (err) {
@@ -144,14 +144,18 @@ function showQRCodeAlert(id) {
             return;
         }
 
+        window.onbeforeunload = function() {
+            return "You cannot leave this page without confirming the payment!";
+        };
+
         Swal.fire({
             title: 'Scan QR Code to make payment',
             imageUrl: url,
             imageAlt: 'QR Code',
-            showCancelButton: true,
-            cancelButtonText: 'Close',
+            showCancelButton: false,
             confirmButtonText: 'Comfirm',
             confirmButtonColor: '#3085d6',
+            allowOutsideClick: false,
             preConfirm: function () {
                 return fetch(`/payments-confirmed/${id}`)
                     .then(response => response.json())
