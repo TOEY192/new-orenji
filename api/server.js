@@ -312,17 +312,37 @@ app.get('/flights/:flightCode', (req, res) => {
     });
 });
 
-app.delete('/flights/:flight_code', (req, res) => {
-    const { flight_code } = req.params;
-    db.query('DELETE FROM Flights WHERE flight_code = ?',
-        [flight_code],
-        (err, results) => {
-            if (err) return res.status(500).send(err)
-            //console.log(results);
-            res.json(results)
+app.delete('/flights/:flight_code', async (req, res) => {
+    try {
+        const { flight_code } = req.params;
+
+        const [flightRows] = await db.promise().query(
+            'SELECT id FROM Flights WHERE flight_code = ?', 
+            [flight_code]
+        );
+
+        if (flightRows.length === 0) {
+            return res.status(404).json({ message: 'Flight not found' });
         }
-    )
-})
+
+        const flightId = flightRows[0].id;
+        console.log("Flight ID to delete:", flightId);
+
+        await db.promise().query('DELETE FROM Seats WHERE flight_id = ?', [flightId]);
+
+        const [deleteResult] = await db.promise().query(
+            'DELETE FROM Flights WHERE flight_code = ?', 
+            [flight_code]
+        );
+
+        res.json({ message: 'Flight deleted successfully', result: deleteResult });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error', error: err });
+    }
+});
+
 
 app.put('/flights/:flightCode', async (req, res) => {
     const { flightCode } = req.params;
