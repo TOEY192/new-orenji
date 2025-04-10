@@ -1,7 +1,13 @@
 document.getElementById('btn_logout').addEventListener('click', () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('selected_flight');
-    localStorage.removeItem('booking_info');
-    alert('Logged out');
-    window.location.href = '/login';
+    fetch('/api/logout', { method: 'POST' })
+        .then(response => response.json())
+        .then(data => {
+            if (data.message === 'Logged out successfully') {
+                alert('Logged out successfully');
+                window.location.href = '/login';
+            }
+        })
+        .catch(error => {
+            console.error('Error during logout:', error);
+        });
 });

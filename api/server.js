@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 require('dotenv').config()
 
 const bcrypt = require('bcryptjs');
@@ -10,12 +11,25 @@ const bodyParser = require('body-parser');
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(cookieParser());
 
 const db = require('./database');
 const authToken = require('./auth')
 
 const staticRoutes = require('./staticRoute');
 staticRoutes(app);
+
+app.get('/check-login', (req, res) => {
+    try {
+        if (req.cookies.token) {
+            res.status(200).send('User is logged in');
+        } else {
+            res.status(500).send('User is not logged in');
+        }
+    } catch (error) {
+        res.status(500).send(error)
+    }
+});
 
 //LOGIN API
 app.post('/api/login', (req, res) => {
@@ -53,6 +67,16 @@ app.post('/api/login', (req, res) => {
         });
     });
 })
+
+app.post('/api/logout', (req, res) => {
+    res.clearCookie('token', {
+        httpOnly: true,
+        secure: true,
+        sameSite: "Strict"
+    });
+
+    res.send({ message: 'Logged out successfully' });
+});
 
 //REGISTER API 
 app.post('/api/register', (req, res) => {
@@ -133,8 +157,6 @@ app.get('/search', (req, res) => {
     });
 });
 
-const cookieParser = require('cookie-parser');
-app.use(cookieParser());
 //BOOKING API
 app.post('/booking', authToken, async (req, res) => {
     try {
@@ -385,8 +407,8 @@ app.post('/generate-seats/:flight_id/:aclass', (req, res) => {
     });
 });
 
-app.get('/ticket/:user_id', (req, res) => {
-    const { user_id } = req.params;
+app.get('/ticket', authToken, (req, res) => {
+    const user_id = req.user.id;
     const sql = `SELECT 
                 b.id,
                 f.flight_code, 
