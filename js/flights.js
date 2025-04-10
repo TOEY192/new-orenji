@@ -1,3 +1,11 @@
+document.addEventListener('DOMContentLoaded', function () {
+    const savedLanguage = localStorage.getItem("language");
+    if (savedLanguage) {
+        document.getElementById("languageSelect").textContent = savedLanguage === 'en' ? 'English' : 'ภาษาไทย';
+        changeLanguage();
+    }
+});
+
 document.getElementById('modal-content').addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -93,3 +101,4 @@ async function editFlight(flightCode) {
         }
     });
 }
+
