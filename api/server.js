@@ -140,6 +140,7 @@ app.post('/booking', authToken, async (req, res) => {
     try {
         const { flight_id, seat } = req.body;
         const user_id = req.user.id;
+        console.log(flight_id, seat, user_id)
 
         // เช็คเที่ยวบิน
         const [rows] = await db.promise().query(`SELECT available_seats FROM Flights WHERE id = ?`, [flight_id]);

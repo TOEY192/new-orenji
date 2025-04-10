@@ -2,8 +2,6 @@ let selectedSeats = [];
 let detail;
 
 window.onload = async () => {
-
-
     const token = window.localStorage.getItem('token');
     if (!token) window.location.href = '/login.html'
 
@@ -96,8 +94,10 @@ document.getElementById('btn-confirm').addEventListener('click', async (e) => {
     e.preventDefault();
 
     const p = document.getElementById('price').textContent;
+    console.log(detail[0].id)
+
     if (p !== '0') {
-        const res = await fetch('booking', {
+        const res = await fetch('/booking', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -109,7 +109,7 @@ document.getElementById('btn-confirm').addEventListener('click', async (e) => {
         })
 
         if (res.ok) console.log('Comfirm Booking')
-        else alert('Failed Booking')
+        else return alert('Failed Booking')
 
         const booking_id = await res.json();
         console.log(booking_id.booking)
