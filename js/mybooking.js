@@ -1,9 +1,6 @@
 window.onload = async () => {
-    const token = window.localStorage.getItem('token');
-    const decodedToken = JSON.parse(atob(token.split('.')[1]));
-    const user_id = decodedToken.id;
 
-    const res = await fetch(`/ticket/${user_id}`)
+    const res = await fetch(`/ticket`)
     const tickets = await res.json();
 
     const c1 = document.getElementById('current1');

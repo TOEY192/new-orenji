@@ -2,8 +2,8 @@ let selectedSeats = [];
 let detail;
 
 window.onload = async () => {
-    const token = window.localStorage.getItem('token');
-    if (!token) window.location.href = '/login.html'
+    const is_login = await fetch('/check-login');
+    if (!is_login.ok) window.location.href = '/login.html'
 
     const flight_code = localStorage.getItem('selected_flight');
 
